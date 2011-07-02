@@ -25,6 +25,6 @@ except ImportError:
 
 def test_collector():
     # import __main__ triggers code re-execution
-    __main__ = sys.modules['__main__']
-    setupDir = os.path.abspath(os.path.dirname(__main__.__file__))
-    return unittest.loader.defaultTestLoader.discover(setupDir)
+    mod = sys.modules['jspy']
+    package = os.path.abspath(os.path.dirname(mod.__file__))
+    return unittest.loader.defaultTestLoader.discover(package)
