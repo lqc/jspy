@@ -15,8 +15,8 @@ def eval_file(file_name, global_objects=None):
         global_objects = create_default_global_objects()
 
     # Parse file
-    f = codecs.open(file_name, encoding='utf-8')
-    file_contents = f.read()
+    with codecs.open(file_name, encoding='utf-8') as f:
+        file_contents = f.read()
     program = Parser().parse(file_contents)
     declared_vars = dict((name, UNDEFINED) for name in program.get_declared_vars())
     declared_vars.update(global_objects)
