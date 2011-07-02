@@ -1,44 +1,34 @@
 jspy - JavaScript interpreter in Python
-=======================================
+=========================================
 
 *jspy* is a toy JavaScript interpreter in Python created by Marek Stepniowski. Its implementation is directly based on [ECMA-262 standard (PDF)](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf).
 
 
-Usage
------
+Installing
+------------
 
-First install the package:
+You'll need setuptools or distribute for installation. Then you can just run:
 
-<pre>
-    $ cd /main/jspy/folder
     $ python setup.py install
-</pre>
 
-You may need to have root rights, depending on your system configuration. After the installation, `jspy` script should be on your path. You can then just run the script with the JavaScript file as a single argument:
+You may need to have root rights, depending on your system configuration. 
 
-<pre>
+
+Usage
+-------
+
+After the installation, `jspy` script should be on your path. You can then just run the script with the JavaScript file as a single argument:
+
     $ jspy file.js
-</pre>
 
 
 Test suite
 ----------
 
-To run the test suite, you either need Python 2.7 or the [unittest2](http://pypi.python.org/pypi/unittest2) package installed.
+To run the test suite, you either need Python 2.7 or the [unittest2](http://pypi.python.org/pypi/unittest2) package installed. 
+Thankfully, setuptools will handle it for you, so you can just run:
 
-Python < 2.7:
-
-<pre>
-    $ cd /main/jspy/folder
-    $ unit2 discover
-</pre>
-
-Python >= 2.7:
-
-<pre>
-    $ cd /main/jspy/folder
-    $ python -m unittest discover
-</pre>
+    $ python setup.py test
 
 Source code
 -----------
