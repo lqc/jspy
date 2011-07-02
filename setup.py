@@ -21,7 +21,10 @@ setup(
     platforms='Cross Platform',
     packages=['jspy'],
     package_data={'jspy': ['test_files/*.js']},
-    scripts=['scripts/jspy'],
+    entry_points = {
+        'console_scripts' : ["jspy = jspy:_main"],
+    },
+    zip_safe=False,
     test_suite='jspy.compat.test_collector',
     use_2to3=True,
 )

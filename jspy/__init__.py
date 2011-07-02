@@ -1,4 +1,5 @@
 import codecs
+
 from jspy.parser import Parser
 from jspy.js import Console, ExecutionContext, UNDEFINED
 
@@ -27,3 +28,27 @@ def eval_file(file_name, global_objects=None):
     # Run code
     result = program.eval(context)
     return result.value, context
+
+
+def _main():
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Execute a single JavaScript file.")
+    parser.add_argument("source", metavar="SOURCE", help="Source file to execute")
+    parser.add_argument('-c', '--context', action='store_true', dest='dump_context', default=False,
+                      help='Dump execution context after running the file')
+    args = parser.parse_args()
+
+    # Run the file
+    result, final_context = eval_file(args.source)
+    print 'Result: %r' % result
+
+    if args.dump_context:
+        print
+        print 'Context:'
+        print '--------'
+        print
+        
+        for name, value in sorted(context.env.iteritems()):
+            print '%s: %r' % (name, value)
+

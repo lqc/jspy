@@ -5,6 +5,10 @@
 .#*
 build
 
+# merge garbage
+*.orig
+*.rej
+
 # Vim
 *.swp
 
