@@ -1,10 +1,10 @@
 import os.path
-import unittest2
+from jspy.compat import unittest
 from jspy.parser import Parser
 from jspy import ast, js, eval_file
 
 
-class TestExpression(unittest2.TestCase):
+class TestExpression(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.parser = Parser(start='expression')
@@ -127,7 +127,7 @@ class TestExpression(unittest2.TestCase):
         self.assertEqual(context['x'], js.Array([9, 10, 11]))
 
 
-class TestStatement(unittest2.TestCase):
+class TestStatement(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.parser = Parser(start='statement')
@@ -240,7 +240,7 @@ class TestStatement(unittest2.TestCase):
         self.assertEqual(context['y'], 2)
 
 
-class TestProgram(unittest2.TestCase):
+class TestProgram(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.parser = Parser(start='program')
@@ -321,7 +321,7 @@ class TestProgram(unittest2.TestCase):
         self.assertEqual(context['f7'], 8)
 
 
-class TestFile(unittest2.TestCase):
+class TestFile(unittest.TestCase):
     def eval(self, file_name):
         package_directory = os.path.dirname(__file__)
         file_path = os.path.join(package_directory, 'test_files', file_name)
