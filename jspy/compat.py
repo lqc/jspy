@@ -17,6 +17,12 @@ except ImportError:
     else:
        raise Exception("You need to have unittest2 or Python >= 2.7 installed.")
 
+
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from StringIO import StringIO # PyPy doesn't need the C implementation
+
 def test_collector():
     # import __main__ triggers code re-execution
     __main__ = sys.modules['__main__']

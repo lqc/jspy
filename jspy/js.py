@@ -1,5 +1,6 @@
 """Module containing basic JavaScript types and objects."""
 from collections import namedtuple
+import sys
 
 
 UNDEFINED = object()
@@ -51,7 +52,7 @@ class Object(object):
     def __eq__(self, other):
         return self.d == other.d
 
-
+    
 class Array(Object):
     """JavaScript Array as defined in [ECMA-262 15.4]."""
     max_repr_len = 23
@@ -68,6 +69,12 @@ class Array(Object):
         max_key = items[-1][0] if len(items) > 0 else -1
         shown_items = [self.get(float(i)) for i in range(0, min(max_key, self.max_repr_len) + 1)]
         return 'Array(%r)' % shown_items
+
+    def __str__(self):
+        items = list(sorted((int(float(key)), value) for key, value in self.d.items()))
+        max_key = items[-1][0] if len(items) > 0 else -1
+        shown_items = [self.get(float(i)) for i in range(0, min(max_key, self.max_repr_len) + 1)]
+        return '[%s]' % ', '.join(str(item) for item in shown_items)
 
 
 class Function(object):
@@ -109,6 +116,29 @@ class Function(object):
         return 'Function(parameters=%r, body=%r, scope=%r)' % (self.parameters,
                                                                self.body,
                                                                self.scope)
+
+
+class NativeFunction(object):
+    """Function implemented in Python, callable from JavaScript code."""
+    def __init__(self, f):
+        self.f = f
+
+    def call(self, this, args):
+        return self.f(this, args)
+
+    def __repr__(self):
+        return 'NativeFunction(f=%r)' % (self.f)
+
+
+class Console(Object):
+    """Global `console` object, behaving similar to Firebug's one."""
+    def __init__(self, out=None):
+        self.out = out if out is not None else sys.stdout
+        self.d = {'log': NativeFunction(self.log)}
+
+    def log(self, this, args):
+        self.out.write(' '.join(str(arg) for arg in args))
+        self.out.write('\n')
 
 
 class ReferenceError(RuntimeError):
