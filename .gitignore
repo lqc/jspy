@@ -1,9 +1,17 @@
 # Python, Emacs and OSX garbage
 *.pyc
+*.pyo
 .DS_Store
 .#*
 build
 
+# Vim
+*.swp
+
 # PLY garbage
 _parser_*.py
 parser.out
+
+# setuptools
+*.egg-info
+*.egg
